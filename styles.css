@@ -13,7 +13,6 @@
   --accent-soft: #e4f3f1;
   --on-accent: #ffffff;
   --shadow: 0 16px 50px #1b35520a;
-  --tabs-height: 82px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 17px;
   line-height: 1.8;
@@ -61,7 +60,7 @@ strong { font-weight: 650; color: var(--heading); }
 .theme-option:hover { color: var(--heading); background: var(--surface-hover); }
 .theme-option[aria-pressed="true"] { background: var(--surface); color: var(--heading); box-shadow: 0 1px 5px #00000012; }
 .theme-icon { display: inline-block; margin-right: 3px; font-size: 1rem; line-height: 1; vertical-align: -.06em; }
-.tabs { position: sticky; top: 0; z-index: 10; display: flex; gap: 8px; padding: 18px 0; margin: 0 0 22px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.tabs { display: flex; gap: 8px; padding: 18px 0; margin: 0 0 22px; background: var(--surface); border-bottom: 1px solid var(--line); }
 .tabs button { flex: 1; min-width: 0; padding: 11px 18px; border: 0; border-radius: 10px; color: var(--muted); background: transparent; font-size: .9rem; font-weight: 650; line-height: 1.5; }
 .tabs button:hover { color: var(--heading); background: var(--surface-soft); }
 .tabs button[aria-selected="true"] { color: var(--on-accent); background: var(--accent); }
@@ -87,7 +86,7 @@ a:hover { color: var(--accent-hover); }
 .card-section-tools button { padding: 7px 13px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: var(--surface); font-size: .76rem; font-weight: 600; line-height: 1.6; }
 .card-section-tools button:hover { background: var(--surface-hover); color: var(--heading); }
 .card-section-tools .section-toggle { color: var(--accent); border-color: var(--accent); }
-.card-global-tools { position: sticky; top: var(--tabs-height); z-index: 5; margin: -22px 0 0; padding: 13px 0; background: var(--surface); border-bottom: 1px solid var(--line); }
+.card-global-tools { margin: 0 0 20px; padding: 0; }
 .card-global-tools button { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
 .card-global-tools button::before { content: ""; display: inline-block; width: 12px; height: 11px; margin-right: 8px; border: 1.5px solid currentColor; border-radius: 2px; background: linear-gradient(currentColor, currentColor) center / 6px 1.5px no-repeat; vertical-align: -.04em; }
 .card-global-tools button:hover { background: var(--accent); color: var(--on-accent); }
@@ -125,7 +124,7 @@ a:hover { color: var(--accent-hover); }
   main { margin: 0; border-radius: 0; border-width: 0; }
 }
 @media (max-width: 760px) {
-  :root { font-size: 16px; --tabs-height: 74px; }
+  :root { font-size: 16px; }
   main { padding: 0 22px 48px; }
   main > header { padding-top: 88px; padding-bottom: 24px; }
   h1 { font-size: clamp(2rem, 6.5vw, 2.8rem); }
