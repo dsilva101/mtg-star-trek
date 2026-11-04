@@ -23,6 +23,22 @@ function makeButton(label, className) {
   return button;
 }
 
+function addCollapseIcon(button) {
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  icon.setAttribute('viewBox', '0 0 24 24');
+  icon.setAttribute('aria-hidden', 'true');
+  icon.setAttribute('focusable', 'false');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M5 14l7-7 7 7');
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', 'currentColor');
+  path.setAttribute('stroke-width', '2.5');
+  path.setAttribute('stroke-linecap', 'round');
+  path.setAttribute('stroke-linejoin', 'round');
+  icon.append(path);
+  button.append(icon);
+}
+
 function setSectionOpen(content, button, open, key) {
   content.hidden = !open;
   button.setAttribute('aria-label', `${open ? 'Collapse' : 'Expand'} ${content.dataset.sectionId} section`);
@@ -96,6 +112,7 @@ if (cardPanel) {
       detail.className = 'card-review';
       detail.dataset.cardId = cardId;
       detail.open = readOpen(`card:${cardId}`, true);
+      const cardName = block.heading.textContent.trim();
 
       const summary = document.createElement('summary');
       summary.append(block.heading);
@@ -109,6 +126,7 @@ if (cardPanel) {
 
       const body = document.createElement('div');
       body.className = 'card-review-content';
+      body.id = `card-review-content-${sectionControls.length}-${order}`;
       const analysis = document.createElement('div');
       analysis.className = 'card-analysis';
       for (const node of block.nodes) {
@@ -119,6 +137,19 @@ if (cardPanel) {
           analysis.append(node);
         }
       }
+      const collapseButton = makeButton('', 'card-collapse-bottom');
+      addCollapseIcon(collapseButton);
+      collapseButton.setAttribute('aria-label', `Collapse ${cardName}`);
+      collapseButton.setAttribute('aria-controls', body.id);
+      collapseButton.title = `Collapse ${cardName}`;
+      collapseButton.addEventListener('click', () => {
+        setCardOpen(detail, false);
+        summary.scrollIntoView({
+          block: 'start',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        });
+      });
+      analysis.append(collapseButton);
       body.append(analysis);
       detail.append(body);
       detail.addEventListener('toggle', () => saveOpen(`card:${cardId}`, detail.open));
@@ -128,37 +159,12 @@ if (cardPanel) {
     for (const node of leadingNodes) content.append(node);
     cards.sort((a, b) => b.rating - a.rating || a.order - b.order);
     for (const card of cards) content.append(card.detail);
-    const bottomCollapseButton = makeButton('', 'section-collapse-bottom');
-    const collapseIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    collapseIcon.setAttribute('viewBox', '0 0 24 24');
-    collapseIcon.setAttribute('aria-hidden', 'true');
-    collapseIcon.setAttribute('focusable', 'false');
-    const collapseIconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    collapseIconPath.setAttribute('d', 'M5 14l7-7 7 7');
-    collapseIconPath.setAttribute('fill', 'none');
-    collapseIconPath.setAttribute('stroke', 'currentColor');
-    collapseIconPath.setAttribute('stroke-width', '2.5');
-    collapseIconPath.setAttribute('stroke-linecap', 'round');
-    collapseIconPath.setAttribute('stroke-linejoin', 'round');
-    collapseIcon.append(collapseIconPath);
-    bottomCollapseButton.append(collapseIcon);
-    bottomCollapseButton.setAttribute('aria-label', `Collapse ${sectionId} section`);
-    bottomCollapseButton.setAttribute('aria-controls', content.id);
-    bottomCollapseButton.title = `Collapse ${sectionId} section`;
-    content.append(bottomCollapseButton);
 
     const initialSectionOpen = readOpen(`section:${sectionId}`, true);
     setSectionOpen(content, sectionButton, initialSectionOpen, `section:${sectionId}`);
     sectionControls.push({ content, button: sectionButton, key: `section:${sectionId}` });
     sectionButton.addEventListener('click', () => {
       setSectionOpen(content, sectionButton, content.hidden, `section:${sectionId}`);
-    });
-    bottomCollapseButton.addEventListener('click', () => {
-      setSectionOpen(content, sectionButton, false, `section:${sectionId}`);
-      sectionHeader.scrollIntoView({
-        block: 'start',
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      });
     });
     collapseButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, false)));
     expandButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, true)));

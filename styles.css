@@ -104,11 +104,11 @@ a:hover { color: var(--accent-hover); }
 .card-section-header h2:has(#Red)::before { background: #de786c; }
 .card-section-header h2:has(#Green)::before { background: #64a886; }
 .card-section-header h2:has(#Multicolor)::before { background: linear-gradient(120deg, #d1bd7b, #5aa4d5, #de786c); }
-.section-collapse-bottom { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: 24px 0 4px auto; padding: 0; border: 0; border-radius: 50%; color: var(--on-accent); background: var(--accent); box-shadow: 0 3px 10px #00000020; }
-.section-collapse-bottom svg { display: block; width: 20px; height: 20px; }
-.section-collapse-bottom:hover { background: var(--accent-hover); }
+.card-collapse-bottom { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: 22px 0 0 auto; padding: 0; border: 0; border-radius: 50%; color: var(--on-accent); background: var(--accent); box-shadow: 0 3px 10px #00000020; }
+.card-collapse-bottom svg { display: block; width: 20px; height: 20px; }
+.card-collapse-bottom:hover { background: var(--accent-hover); }
 .card-review { margin: 16px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: clip; }
-.card-review > summary { position: relative; display: block; padding: 17px 50px 17px 20px; list-style: none; cursor: pointer; background: var(--surface-soft); }
+.card-review > summary { position: relative; display: block; padding: 17px 50px 17px 20px; list-style: none; cursor: pointer; background: var(--surface-soft); scroll-margin-top: 24px; }
 .card-review > summary::-webkit-details-marker { display: none; }
 .card-review > summary::after { content: ""; position: absolute; right: 23px; top: 24px; width: 7px; height: 7px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); }
 .card-review[open] > summary::after { transform: rotate(225deg); top: 28px; }
