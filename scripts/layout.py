@@ -1,4 +1,6 @@
 """Group the existing review nodes into tabs without changing their contents."""
+from hashlib import sha256
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 
@@ -37,10 +39,17 @@ def apply_tabs(page):
     article.append(tablist)
     for panel in panels.values():
         article.append(panel)
+    global_tools = soup.new_tag('div', attrs={'class': 'card-section-tools card-global-tools'})
+    global_button = soup.new_tag('button', attrs={'type': 'button', 'class': 'sections-collapse-all'})
+    global_button.string = 'Collapse all sections'
+    global_tools.append(global_button)
+    panels['cards'].insert(0, global_tools)
     csp = soup.find('meta', attrs={'http-equiv': 'Content-Security-Policy'})
     csp['content'] = csp['content'].replace("style-src 'self';", "style-src 'self'; script-src 'self';")
     script = soup.new_tag('script', attrs={'src': 'tabs.js', 'defer': ''})
     soup.head.append(script)
-    cards_script = soup.new_tag('script', attrs={'src': 'cards.js', 'defer': ''})
+    cards_file = Path(__file__).resolve().parent.parent / 'cards.js'
+    cards_version = sha256(cards_file.read_bytes()).hexdigest()[:12]
+    cards_script = soup.new_tag('script', attrs={'src': f'cards.js?v={cards_version}', 'defer': ''})
     soup.head.append(cards_script)
     return str(soup)

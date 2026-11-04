@@ -118,16 +118,14 @@ if (cardPanel) {
     expandButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, true)));
   }
 
-  const globalTools = document.createElement('div');
-  globalTools.className = 'card-section-tools card-global-tools';
-  const collapseSectionsButton = makeButton('Collapse all sections', 'sections-collapse-all');
+  const collapseSectionsButton = cardPanel.querySelector('.sections-collapse-all');
+  if (collapseSectionsButton) {
   collapseSectionsButton.addEventListener('click', () => {
     for (const section of sectionControls) {
       setSectionOpen(section.content, section.button, false, section.key);
     }
   });
-  globalTools.append(collapseSectionsButton);
-  cardPanel.prepend(globalTools);
+  }
 
   function revealTarget(target) {
     if (!target || !cardPanel.contains(target)) return;
