@@ -1,0 +1,32 @@
+:root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #202731; background: #f3f4f6; line-height: 1.7; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 920px; margin: 0 auto; padding: 44px 48px 80px; background: #fff; }
+h1, h2, h3 { line-height: 1.25; color: #172437; text-wrap: balance; }
+h1 { margin: 0 0 12px; font-size: clamp(1.9rem, 5vw, 2.8rem); }
+h2 { font-size: 1.9rem; margin: 56px 0 24px; border-bottom: 2px solid #e4e8ee; padding-bottom: 14px; }
+h3 { font-size: 1.4rem; margin: 40px 0 20px; }
+p { margin: 18px 0; }
+.byline { color: #647084; margin: 0 0 30px; font-size: .95rem; }
+img { max-width: 100%; height: auto; display: block; }
+figure { margin: 24px 0; }
+figure img { margin: auto; }
+.has-text-align-right { text-align: right; }
+.has-small-font-size { font-size: .85rem; color: #647084; }
+blockquote { margin: 28px 0; padding: 6px 24px; border-left: 3px solid #7189a6; background: #f6f8fa; font-style: italic; }
+blockquote p { margin: 10px 0; }
+.card_gallery_wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 24px 0; }
+.card_gallery_wrapper img { width: 265px; max-width: 100%; border-radius: 10px; align-self: flex-start; }
+.contents { margin: 30px 0; padding: 16px 20px; border: 1px solid #dce2e9; border-radius: 8px; background: #f8fafc; }
+summary { cursor: pointer; font-weight: 650; }
+.lwptoc_items { margin-top: 16px; }
+.lwptoc_itemWrap .lwptoc_itemWrap { padding-left: 20px; }
+.lwptoc_item { padding: 3px 0; }
+.lwptoc_item_number { color: #647084; margin-right: 8px; }
+a { color: #245b94; text-underline-offset: 3px; }
+a:hover { color: #133b66; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #245b94; outline-offset: 4px; }
+[id] { scroll-margin-top: 20px; }
+.mana { display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; font-size: .8em; font-weight: 700; line-height: 1; border-radius: 50%; vertical-align: baseline; color: #172437; background: #e5e7eb; }
+.mana-w { background: #f5edce; } .mana-u { background: #b9d9ee; } .mana-b { background: #cac3d1; } .mana-r { background: #efb4a4; } .mana-g { background: #b8d4b4; }
+@media (max-width: 600px) { main { padding: 26px 20px 56px; } h2 { font-size: 1.65rem; } h3 { font-size: 1.25rem; } .card_gallery_wrapper { gap: 12px; } .card_gallery_wrapper img { max-width: min(265px, 100%); } .contents { padding: 14px; } }
