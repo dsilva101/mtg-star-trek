@@ -8,6 +8,7 @@ import html
 import json
 import time
 from bs4 import BeautifulSoup, Comment
+from layout import apply_tabs
 
 ROOT = Path(__file__).resolve().parent.parent
 source = next((p for p in [ROOT / 'source.html', ROOT / 'source'] if p.exists()), None)
@@ -103,6 +104,6 @@ page = f'''<!doctype html>
 </body>
 </html>
 '''
-(ROOT / 'index.html').write_text(page)
+(ROOT / 'index.html').write_text(apply_tabs(page))
 (ROOT / 'assets' / 'manifest.json').write_text(json.dumps(images, indent=2) + '\n')
 print(f'Built index.html with {len(content.select("h2"))} sections, {len(content.select("h3"))} subsections and {len(images)} local images.')

@@ -30,3 +30,10 @@ a:focus-visible, summary:focus-visible { outline: 3px solid #245b94; outline-off
 .mana { display: inline-flex; align-items: center; justify-content: center; width: 1.4em; height: 1.4em; font-size: .8em; font-weight: 700; line-height: 1; border-radius: 50%; vertical-align: baseline; color: #172437; background: #e5e7eb; }
 .mana-w { background: #f5edce; } .mana-u { background: #b9d9ee; } .mana-b { background: #cac3d1; } .mana-r { background: #efb4a4; } .mana-g { background: #b8d4b4; }
 @media (max-width: 600px) { main { padding: 26px 20px 56px; } h2 { font-size: 1.65rem; } h3 { font-size: 1.25rem; } .card_gallery_wrapper { gap: 12px; } .card_gallery_wrapper img { max-width: min(265px, 100%); } .contents { padding: 14px; } }
+.tabs { display: flex; gap: 8px; margin: 0 0 28px; padding: 6px; border: 1px solid #dce2e9; border-radius: 10px; background: #f3f6fa; }
+.tabs button { flex: 1; min-width: 0; padding: 12px 10px; border: 0; border-radius: 6px; color: #475569; background: transparent; font: inherit; font-weight: 650; line-height: 1.4; cursor: pointer; }
+.tabs button:hover { background: #e4ebf3; color: #172437; }
+.tabs button[aria-selected="true"] { background: #245b94; color: #fff; }
+.tabs button:focus-visible, .tab-panel:focus-visible { outline: 3px solid #245b94; outline-offset: 3px; }
+.tab-panel[hidden] { display: none; }
+.tab-panel > .contents:first-child { margin-top: 0; }
