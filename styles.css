@@ -104,7 +104,7 @@ a:hover { color: var(--accent-hover); }
 .card-section-header h2:has(#Red)::before { background: #de786c; }
 .card-section-header h2:has(#Green)::before { background: #64a886; }
 .card-section-header h2:has(#Multicolor)::before { background: linear-gradient(120deg, #d1bd7b, #5aa4d5, #de786c); }
-.card-collapse-bottom { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin: 22px 0 0 auto; padding: 0; border: 0; border-radius: 50%; color: var(--on-accent); background: var(--accent); box-shadow: 0 3px 10px #00000020; }
+.card-collapse-bottom { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin: 0 0 0 8px; padding: 0; border: 0; border-radius: 50%; color: var(--on-accent); background: var(--accent); box-shadow: 0 3px 10px #00000020; vertical-align: middle; }
 .card-collapse-bottom svg { display: block; width: 10px; height: 10px; }
 .card-collapse-bottom:hover { background: var(--accent-hover); }
 .card-review { margin: 16px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: clip; }
