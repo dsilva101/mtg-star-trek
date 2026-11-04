@@ -128,12 +128,24 @@ if (cardPanel) {
     for (const node of leadingNodes) content.append(node);
     cards.sort((a, b) => b.rating - a.rating || a.order - b.order);
     for (const card of cards) content.append(card.detail);
+    const bottomCollapseButton = makeButton('', 'section-collapse-bottom');
+    bottomCollapseButton.setAttribute('aria-label', `Collapse ${sectionId} section`);
+    bottomCollapseButton.setAttribute('aria-controls', content.id);
+    bottomCollapseButton.title = `Collapse ${sectionId} section`;
+    content.append(bottomCollapseButton);
 
     const initialSectionOpen = readOpen(`section:${sectionId}`, true);
     setSectionOpen(content, sectionButton, initialSectionOpen, `section:${sectionId}`);
     sectionControls.push({ content, button: sectionButton, key: `section:${sectionId}` });
     sectionButton.addEventListener('click', () => {
       setSectionOpen(content, sectionButton, content.hidden, `section:${sectionId}`);
+    });
+    bottomCollapseButton.addEventListener('click', () => {
+      setSectionOpen(content, sectionButton, false, `section:${sectionId}`);
+      sectionHeader.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      });
     });
     collapseButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, false)));
     expandButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, true)));
