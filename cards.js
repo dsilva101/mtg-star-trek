@@ -50,6 +50,7 @@ if (cardPanel) {
     }
     return { heading, nodes };
   });
+  const sectionControls = [];
 
   for (const { heading, nodes } of sections) {
     const sectionId = heading.querySelector('[id]')?.id || heading.textContent.trim();
@@ -109,12 +110,24 @@ if (cardPanel) {
 
     const initialSectionOpen = readOpen(`section:${sectionId}`, true);
     setSectionOpen(content, sectionButton, initialSectionOpen, `section:${sectionId}`);
+    sectionControls.push({ content, button: sectionButton, key: `section:${sectionId}` });
     sectionButton.addEventListener('click', () => {
       setSectionOpen(content, sectionButton, content.hidden, `section:${sectionId}`);
     });
     collapseButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, false)));
     expandButton.addEventListener('click', () => cards.forEach(card => setCardOpen(card.detail, true)));
   }
+
+  const globalTools = document.createElement('div');
+  globalTools.className = 'card-section-tools card-global-tools';
+  const collapseSectionsButton = makeButton('Collapse all sections', 'sections-collapse-all');
+  collapseSectionsButton.addEventListener('click', () => {
+    for (const section of sectionControls) {
+      setSectionOpen(section.content, section.button, false, section.key);
+    }
+  });
+  globalTools.append(collapseSectionsButton);
+  cardPanel.prepend(globalTools);
 
   function revealTarget(target) {
     if (!target || !cardPanel.contains(target)) return;
