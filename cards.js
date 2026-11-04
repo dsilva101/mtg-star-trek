@@ -66,7 +66,11 @@ if (cardPanel) {
     content.id = `card-section-${sectionControls.length}`;
     sectionButton.setAttribute('aria-controls', content.id);
     content.dataset.sectionId = sectionId;
-    heading.after(toolbar, content);
+    const sectionHeader = document.createElement('div');
+    sectionHeader.className = 'card-section-header';
+    heading.before(sectionHeader);
+    sectionHeader.append(heading, toolbar);
+    sectionHeader.after(content);
 
     const leadingNodes = [];
     const blocks = [];
@@ -147,7 +151,7 @@ if (cardPanel) {
     const card = target.closest('details.card-review');
     if (card) setCardOpen(card, true);
     const content = target.closest('.card-section-content') ||
-      (target.closest('h2') ? target.closest('h2').nextElementSibling?.nextElementSibling : null);
+      target.closest('.card-section-header')?.nextElementSibling;
     const sectionButton = content?.previousElementSibling?.querySelector('.section-toggle');
     if (content && sectionButton && content.hidden) {
       setSectionOpen(content, sectionButton, true, `section:${content.dataset.sectionId}`);
