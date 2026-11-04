@@ -25,7 +25,7 @@ function makeButton(label, className) {
 
 function setSectionOpen(content, button, open, key) {
   content.hidden = !open;
-  button.textContent = open ? 'Collapse section' : 'Expand section';
+  button.setAttribute('aria-label', `${open ? 'Collapse' : 'Expand'} ${content.dataset.sectionId} section`);
   button.setAttribute('aria-expanded', String(open));
   saveOpen(key, open);
 }
@@ -56,19 +56,21 @@ if (cardPanel) {
     const sectionId = heading.querySelector('[id]')?.id || heading.textContent.trim();
     const toolbar = document.createElement('div');
     toolbar.className = 'card-section-tools';
-    const sectionButton = makeButton('Collapse section', 'section-toggle');
-    const collapseButton = makeButton('Collapse all cards', 'cards-collapse-all');
-    const expandButton = makeButton('Expand all cards', 'cards-expand-all');
-    toolbar.append(sectionButton, collapseButton, expandButton);
+    const collapseButton = makeButton('Collapse all', 'cards-collapse-all');
+    const expandButton = makeButton('Expand all', 'cards-expand-all');
+    toolbar.append(collapseButton, expandButton);
 
     const content = document.createElement('div');
     content.className = 'card-section-content';
     content.id = `card-section-${sectionControls.length}`;
+    const sectionButton = makeButton('', 'section-toggle');
     sectionButton.setAttribute('aria-controls', content.id);
     content.dataset.sectionId = sectionId;
     const sectionHeader = document.createElement('div');
     sectionHeader.className = 'card-section-header';
     heading.before(sectionHeader);
+    sectionButton.append(...heading.childNodes);
+    heading.append(sectionButton);
     sectionHeader.append(heading, toolbar);
     sectionHeader.after(content);
 

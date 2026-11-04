@@ -85,13 +85,16 @@ a:hover { color: var(--accent-hover); }
 .card-section-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: -8px 0 24px; }
 .card-section-tools button { padding: 7px 13px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: var(--surface); font-size: .76rem; font-weight: 600; line-height: 1.6; }
 .card-section-tools button:hover { background: var(--surface-hover); color: var(--heading); }
-.card-section-tools .section-toggle { color: var(--accent); border-color: var(--accent); }
 .card-global-tools { margin: 0 0 20px; padding: 0; }
 .card-global-tools button { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
 .card-global-tools button::before { content: ""; display: inline-block; width: 12px; height: 11px; margin-right: 8px; border: 1.5px solid currentColor; border-radius: 2px; background: linear-gradient(currentColor, currentColor) center / 6px 1.5px no-repeat; vertical-align: -.04em; }
 .card-global-tools button:hover { background: var(--accent); color: var(--on-accent); }
 .card-section-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 44px 0 24px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .card-section-header h2 { display: flex; align-items: center; gap: 12px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.card-section-header h2 > .section-toggle { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 0; border: 0; color: inherit; background: transparent; font: inherit; letter-spacing: inherit; line-height: inherit; text-align: left; }
+.card-section-header h2 > .section-toggle::after { content: ""; width: 8px; height: 8px; flex: 0 0 auto; margin: 0 0 4px 5px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); }
+.card-section-header h2 > .section-toggle[aria-expanded="false"]::after { margin-bottom: 0; transform: rotate(-45deg); }
+.card-section-header h2 > .section-toggle:hover { color: var(--accent); }
 .card-section-header .card-section-tools { justify-content: flex-end; margin: 0 0 0 auto; max-width: 70%; }
 .card-section-header h2::before { content: ""; width: 13px; height: 13px; flex-shrink: 0; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px var(--surface-soft); }
 .card-section-header h2:has(#White)::before { background: #d1bd7b; }
