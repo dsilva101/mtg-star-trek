@@ -149,16 +149,7 @@ if (cardPanel) {
           behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
         });
       });
-      let collapseHost = analysis.lastElementChild;
-      if (collapseHost?.matches('ul, ol')) collapseHost = collapseHost.lastElementChild;
-      if (collapseHost?.matches('blockquote')) {
-        collapseHost = collapseHost.querySelector('p:last-of-type') || collapseHost;
-      }
-      if (collapseHost && ['P', 'LI', 'DIV', 'BLOCKQUOTE'].includes(collapseHost.tagName)) {
-        collapseHost.append(collapseButton);
-      } else {
-        analysis.append(collapseButton);
-      }
+      analysis.append(collapseButton);
       body.append(analysis);
       detail.append(body);
       detail.addEventListener('toggle', () => saveOpen(`card:${cardId}`, detail.open));
