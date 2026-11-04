@@ -65,6 +65,7 @@ strong { font-weight: 650; color: var(--heading); }
 .tabs button:hover { color: var(--heading); background: var(--surface-soft); }
 .tabs button[aria-selected="true"] { color: var(--on-accent); background: var(--accent); }
 .tab-panel[hidden], .card-section-content[hidden] { display: none; }
+.tab-panel:focus, .tab-panel:focus-visible { outline: none; }
 #intro, #mechanics { max-width: 760px; margin-inline: auto; }
 .tab-panel > h2:first-child { margin-top: 30px; }
 img { display: block; max-width: 100%; height: auto; }
