@@ -37,3 +37,15 @@ a:focus-visible, summary:focus-visible { outline: 3px solid #245b94; outline-off
 .tabs button:focus-visible, .tab-panel:focus-visible { outline: 3px solid #245b94; outline-offset: 3px; }
 .tab-panel[hidden] { display: none; }
 .tab-panel > .contents:first-child { margin-top: 0; }
+.card-section-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: -10px 0 18px; }
+.card-section-tools button { padding: 7px 11px; border: 1px solid #cbd5e1; border-radius: 6px; color: #24415f; background: #f5f8fb; font: inherit; font-size: .9rem; cursor: pointer; }
+.card-section-tools button:hover { background: #e8eef5; }
+.card-section-tools button:focus-visible, .card-review > summary:focus-visible { outline: 3px solid #245b94; outline-offset: 3px; }
+.card-section-content[hidden] { display: none; }
+.card-review { margin: 14px 0; border: 1px solid #dce2e9; border-radius: 8px; background: #fff; }
+.card-review > summary { padding: 12px 16px; border-radius: 8px; background: #f8fafc; }
+.card-review[open] > summary { border-bottom: 1px solid #dce2e9; border-radius: 8px 8px 0 0; }
+.card-review > summary h3 { display: inline; margin: 0; font-size: 1.2rem; }
+.card-review-content { padding: 2px 16px 12px; }
+.card-review-content > :first-child { margin-top: 12px; }
+.card-review-content > :last-child { margin-bottom: 8px; }

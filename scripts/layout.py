@@ -57,4 +57,6 @@ def apply_tabs(page):
     csp['content'] = csp['content'].replace("style-src 'self';", "style-src 'self'; script-src 'self';")
     script = soup.new_tag('script', attrs={'src': 'tabs.js', 'defer': ''})
     soup.head.append(script)
+    cards_script = soup.new_tag('script', attrs={'src': 'cards.js', 'defer': ''})
+    soup.head.append(cards_script)
     return str(soup)
