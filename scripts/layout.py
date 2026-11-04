@@ -4,13 +4,43 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
+def apply_presentation(soup):
+    """Add reading controls and version local assets without editing review nodes."""
+    if not soup.select_one('.theme-picker'):
+        picker = soup.new_tag('div', attrs={
+            'class': 'theme-picker', 'role': 'group', 'aria-label': 'Color theme',
+        })
+        for value, label in [('light', 'Light'), ('dark', 'Dark')]:
+            button = soup.new_tag('button', attrs={
+                'type': 'button', 'class': 'theme-option',
+                'data-theme-value': value, 'aria-pressed': 'false',
+            })
+            icon = soup.new_tag('span', attrs={'aria-hidden': 'true', 'class': 'theme-icon'})
+            icon.string = '☀' if value == 'light' else '☾'
+            button.append(icon)
+            button.append(' ' + label)
+            picker.append(button)
+        soup.select_one('main > header').insert(0, picker)
+    if not soup.select_one('script[src^="theme.js"]'):
+        # Load before the stylesheet so the saved theme is applied before painting.
+        soup.head.find('link', rel='stylesheet').insert_before(
+            soup.new_tag('script', attrs={'src': 'theme.js'})
+        )
+    root = Path(__file__).resolve().parent.parent
+    for asset in soup.select('link[rel="stylesheet"][href], script[src]'):
+        attr = 'src' if asset.name == 'script' else 'href'
+        filename = asset[attr].split('?')[0]
+        asset[attr] = f'{filename}?v={sha256((root / filename).read_bytes()).hexdigest()[:12]}'
+    return str(soup)
+
+
 def apply_tabs(page):
     soup = BeautifulSoup(page, 'html.parser')
     article = soup.article
     for toc in article.select('.contents, .lwptoc'):
         toc.decompose()
     if article.select_one('.tab-panel'):
-        return str(soup)
+        return apply_presentation(soup)
     panels = {}
     tablist = soup.new_tag('div', attrs={'class': 'tabs', 'role': 'tablist', 'aria-label': 'Review sections'})
     for key, label in [('intro', 'Intro'), ('mechanics', 'Mechanics'), ('cards', 'Cards')]:
@@ -52,4 +82,4 @@ def apply_tabs(page):
     cards_version = sha256(cards_file.read_bytes()).hexdigest()[:12]
     cards_script = soup.new_tag('script', attrs={'src': f'cards.js?v={cards_version}', 'defer': ''})
     soup.head.append(cards_script)
-    return str(soup)
+    return apply_presentation(soup)

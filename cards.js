@@ -63,6 +63,8 @@ if (cardPanel) {
 
     const content = document.createElement('div');
     content.className = 'card-section-content';
+    content.id = `card-section-${sectionControls.length}`;
+    sectionButton.setAttribute('aria-controls', content.id);
     content.dataset.sectionId = sectionId;
     heading.after(toolbar, content);
 
@@ -91,14 +93,27 @@ if (cardPanel) {
 
       const summary = document.createElement('summary');
       summary.append(block.heading);
-      if (rating >= 0) block.heading.prepend(document.createTextNode(`(${rating}) `));
+      if (rating >= 0) {
+        const badge = document.createElement('span');
+        badge.className = 'card-rating';
+        badge.textContent = `(${rating})`;
+        block.heading.prepend(badge, document.createTextNode(' '));
+      }
       detail.append(summary);
 
       const body = document.createElement('div');
       body.className = 'card-review-content';
+      const analysis = document.createElement('div');
+      analysis.className = 'card-analysis';
       for (const node of block.nodes) {
-        if (node !== block.heading) body.append(node);
+        if (node === block.heading) continue;
+        if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('card_gallery_wrapper')) {
+          body.append(node);
+        } else {
+          analysis.append(node);
+        }
       }
+      body.append(analysis);
       detail.append(body);
       detail.addEventListener('toggle', () => saveOpen(`card:${cardId}`, detail.open));
       return { detail, rating, order };
