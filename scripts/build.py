@@ -26,16 +26,9 @@ for node in content.find_all(string=lambda t: isinstance(t, Comment)):
 for p in content.select('p'):
     if p.get_text(' ', strip=True).startswith('If you liked this article, please consider subscribing'):
         p.decompose()
-# Keep the existing same-page contents as a native, script-free disclosure.
-toc = content.select_one('.lwptoc')
-if toc:
-    items = toc.select_one('.lwptoc_items').extract()
-    details = soup.new_tag('details', attrs={'class': 'contents'})
-    summary = soup.new_tag('summary')
-    summary.string = 'Table of contents'
-    details.append(summary)
-    details.append(items)
-    toc.replace_with(details)
+# Remove the source table of contents from the reading page.
+for toc in content.select('.lwptoc, details.contents'):
+    toc.decompose()
 for a in list(content.select('a')):
     href = a.get('href', '')
     if not href.startswith('#') or href == '#':
